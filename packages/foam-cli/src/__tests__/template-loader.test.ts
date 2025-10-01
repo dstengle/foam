@@ -29,7 +29,7 @@ describe('TemplateLoader', () => {
       expect(template.metadata).toEqual({});
     });
 
-    it('should extract frontmatter metadata', async () => {
+    it('should extract frontmatter metadata and remove it from content', async () => {
       const templatePath = path.join(testDir, 'template-with-metadata.md');
       const content = `---
 filepath: journal/$FOAM_DATE_YEAR-$FOAM_DATE_MONTH-$FOAM_DATE_DATE.md
@@ -43,7 +43,12 @@ Daily content here.`;
 
       const template = await loader.loadTemplate(URI.file(templatePath));
 
-      expect(template.content).toContain('# $FOAM_TITLE');
+      // Content should NOT include the frontmatter
+      expect(template.content).toBe('# $FOAM_TITLE\n\nDaily content here.');
+      expect(template.content).not.toContain('---');
+      expect(template.content).not.toContain('filepath:');
+
+      // Metadata should be extracted
       expect(template.metadata.filepath).toBe(
         'journal/$FOAM_DATE_YEAR-$FOAM_DATE_MONTH-$FOAM_DATE_DATE.md'
       );

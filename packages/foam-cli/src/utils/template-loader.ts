@@ -14,18 +14,25 @@ export interface Template {
 }
 
 /**
- * Extracts Foam template frontmatter metadata
+ * Extracts Foam template frontmatter metadata and content
  */
-function extractFrontmatterMetadata(content: string): TemplateMetadata {
+function parseFrontmatter(rawContent: string): {
+  metadata: TemplateMetadata;
+  content: string;
+} {
   try {
-    const parsed = matter(content);
-    if (parsed.data && typeof parsed.data === 'object') {
-      return parsed.data as TemplateMetadata;
-    }
+    const parsed = matter(rawContent);
+    return {
+      metadata: (parsed.data || {}) as TemplateMetadata,
+      content: parsed.content,
+    };
   } catch (error) {
-    // Ignore parsing errors
+    // If parsing fails, return raw content with no metadata
+    return {
+      metadata: {},
+      content: rawContent,
+    };
   }
-  return {};
 }
 
 /**
@@ -36,8 +43,8 @@ export class TemplateLoader {
    * Loads a template from a file path
    */
   async loadTemplate(templatePath: URI): Promise<Template> {
-    const content = await FileSystem.readFile(templatePath);
-    const metadata = extractFrontmatterMetadata(content);
+    const rawContent = await FileSystem.readFile(templatePath);
+    const { metadata, content } = parseFrontmatter(rawContent);
 
     return {
       content,
