@@ -51,9 +51,7 @@ program
     try {
       // Validate inputs
       if (!options.title && !options.path) {
-        console.error(
-          'Error: Either --title or --path must be provided'
-        );
+        console.error('Error: Either --title or --path must be provided');
         process.exit(1);
       }
 
@@ -110,7 +108,8 @@ program
         console.log(`✓ Note updated: ${result.filepath}`);
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
       console.error(`Error: ${errorMessage}`);
       process.exit(1);
     }

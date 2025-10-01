@@ -49,9 +49,7 @@ export class TemplateLoader {
    * Gets the default template content if no template is specified
    */
   getDefaultTemplate(title?: string): Template {
-    const content = title
-      ? `# ${title}\n\n`
-      : `# $FOAM_TITLE\n\n`;
+    const content = title ? `# ${title}\n\n` : `# $FOAM_TITLE\n\n`;
 
     return {
       content,

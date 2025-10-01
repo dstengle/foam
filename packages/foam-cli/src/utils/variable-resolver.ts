@@ -1,31 +1,7 @@
 import dateformat from 'dateformat';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const GithubSlugger = require('github-slugger');
-import {
-  SnippetParser,
-  Variable,
-  VariableResolver,
-} from './snippetParser';
+import { SnippetParser, Variable, VariableResolver } from './snippetParser';
 
-const knownFoamVariables = new Set([
-  'FOAM_TITLE',
-  'FOAM_TITLE_SAFE',
-  'FOAM_SLUG',
-  'FOAM_DATE_YEAR',
-  'FOAM_DATE_YEAR_SHORT',
-  'FOAM_DATE_MONTH',
-  'FOAM_DATE_MONTH_NAME',
-  'FOAM_DATE_MONTH_NAME_SHORT',
-  'FOAM_DATE_DATE',
-  'FOAM_DATE_DAY_ISO',
-  'FOAM_DATE_WEEK',
-  'FOAM_DATE_DAY_NAME',
-  'FOAM_DATE_DAY_NAME_SHORT',
-  'FOAM_DATE_HOUR',
-  'FOAM_DATE_MINUTE',
-  'FOAM_DATE_SECOND',
-  'FOAM_DATE_SECONDS_UNIX',
-]);
+const GithubSlugger = require('github-slugger');
 
 /**
  * Converts title to safe filename

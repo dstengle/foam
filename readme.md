@@ -132,6 +132,26 @@ With references you can also make your notes navigable both in GitHub UI as well
   - This becomes very powerful when combined with [note templates](https://foambubble.github.io/foam/user/features/note-templates) and the `Foam: Create New Note from Template` command
 - See your workspace as a connected graph with the `Foam: Show Graph` command
 
+### Command Line Interface
+
+Foam also provides a CLI for creating notes from the command line:
+
+```bash
+# Install globally
+npm install -g foam-cli
+
+# Create a note
+foam create-note --title "My Note"
+
+# Create from template with variables
+foam create-note \
+  --template .foam/templates/daily-note.md \
+  --date 2024-01-15 \
+  --variable PROJECT=MyProject
+```
+
+See the [CLI documentation](https://foambubble.github.io/foam/user/tools/cli) for more details.
+
 ## Recipes
 
 People use Foam in different ways for different use cases, check out the [recipes](https://foambubble.github.io/foam/user/recipes/recipes) page for inspiration!
