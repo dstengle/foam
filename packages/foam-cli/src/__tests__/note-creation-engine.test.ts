@@ -117,6 +117,36 @@ describe('NoteCreationEngine', () => {
       expect(result.content).toContain('# Journal Entry');
     });
 
+    it('should use complex template filepath with title variables', async () => {
+      const template = {
+        content: `---
+type: 1on1-meeting
+title: "$FOAM_TITLE $FOAM_DATE_YEAR-$FOAM_DATE_MONTH-$FOAM_DATE_DATE-$FOAM_DATE_DAY_NAME"
+---
+
+# [[$FOAM_TITLE]] $FOAM_DATE_YEAR-$FOAM_DATE_MONTH-$FOAM_DATE_DATE-$FOAM_DATE_DAY_NAME`,
+        metadata: {
+          filepath:
+            'timeline/$FOAM_DATE_YEAR/$FOAM_DATE_MONTH/$FOAM_DATE_DATE/$FOAM_TITLE-meetingnote-$FOAM_DATE_YEAR-$FOAM_DATE_MONTH-$FOAM_DATE_DATE.md',
+        },
+      };
+      const date = new Date('2024-01-15');
+
+      const result = await engine.createNote({
+        workspaceRoot: testDir,
+        title: 'John',
+        template,
+        date,
+      });
+
+      expect(result.filepath).toContain(
+        'timeline/2024/01/15/John-meetingnote-2024-01-15.md'
+      );
+      expect(result.content).toContain('type: 1on1-meeting');
+      expect(result.content).toContain('title: "John 2024-01-15-Monday"');
+      expect(result.content).toContain('# [[John]] 2024-01-15-Monday');
+    });
+
     it('should sanitize invalid characters in filepath', async () => {
       const template = templateLoader.getDefaultTemplate();
 
