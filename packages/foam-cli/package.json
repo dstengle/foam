@@ -1,0 +1,40 @@
+{
+  "name": "foam-cli",
+  "version": "0.1.0",
+  "description": "Command-line interface for Foam",
+  "main": "dist/index.js",
+  "bin": {
+    "foam": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "watch": "tsc --watch",
+    "test": "jest",
+    "lint": "dts lint src"
+  },
+  "keywords": [
+    "foam",
+    "cli",
+    "note-taking",
+    "knowledge-management"
+  ],
+  "author": "Foam",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.0.0",
+    "dateformat": "^4.5.1",
+    "dayjs": "^1.11.13",
+    "github-slugger": "^1.4.0",
+    "gray-matter": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/dateformat": "^3.0.1",
+    "dts-cli": "^1.6.3",
+    "jest": "^29.6.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^29.1.1",
+    "typescript": "^4.9.5"
+  }
+}
